@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 {
   "extends": "next/core-web-vitals"
 }
 
+=======
+{
+  "extends": "next/core-web-vitals"
+}
+
+>>>>>>> 22cf4a93de2cbf6409b3118826ff002108b9e1a2
