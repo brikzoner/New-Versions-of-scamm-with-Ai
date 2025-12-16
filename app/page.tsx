@@ -109,7 +109,7 @@ export default function Home() {
               { value: '5+', label: t('home.stats.scamTypes') },
               { value: '100%', label: t('home.stats.free') },
               { value: '24/7', label: t('home.stats.available') },
-              { value: t('home.stats.transparency'), label: '' },
+              { value: String(t('home.stats.transparency')), label: '' },
             ].map((stat, index) => (
               <motion.div
                 key={index}

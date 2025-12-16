@@ -10,17 +10,6 @@ import { translations } from '@/locales/translations'
 const languageMetaFallback: Record<string, { name: string; flag: string }> = {
   uk: { name: 'Українська', flag: '🇺🇦' },
   en: { name: 'English', flag: '🇬🇧' },
-  es: { name: 'Español', flag: '🇪🇸' },
-  fr: { name: 'Français', flag: '🇫🇷' },
-  de: { name: 'Deutsch', flag: '🇩🇪' },
-  ru: { name: 'Русский', flag: '🇷🇺' },
-  ar: { name: 'العربية', flag: '🇸🇦' },
-  zh: { name: '中文', flag: '🇨🇳' },
-  ja: { name: '日本語', flag: '🇯🇵' },
-  hi: { name: 'हिन्दी', flag: '🇮🇳' },
-  pt: { name: 'Português', flag: '🇵🇹' },
-  it: { name: 'Italiano', flag: '🇮🇹' },
-  pl: { name: 'Polski', flag: '🇵🇱' },
 }
 
 export default function Navigation() {
@@ -52,12 +41,12 @@ export default function Navigation() {
     languageOptions.find((l) => l.code === language) || languageOptions[0]
 
   const navLinks = [
-    { href: '/', label: t('nav.home') },
-    { href: '/scam-types', label: t('nav.scamTypes') },
-    { href: '/detection', label: t('nav.detection') },
-    { href: '/resources', label: t('nav.resources') },
-    { href: '/about', label: t('nav.about') },
-    { href: '/contact', label: t('nav.contact') },
+    { href: '/', label: String(t('nav.home')) },
+    { href: '/scam-types', label: String(t('nav.scamTypes')) },
+    { href: '/detection', label: String(t('nav.detection')) },
+    { href: '/resources', label: String(t('nav.resources')) },
+    { href: '/about', label: String(t('nav.about')) },
+    { href: '/contact', label: String(t('nav.contact')) },
   ]
 
   return (
@@ -169,7 +158,7 @@ export default function Navigation() {
               
               <div className="pt-4 border-t border-scandi-gray">
                 <div className="text-sm font-medium text-gray-600 mb-2 px-3">
-                  {t('nav.selectLanguage')}
+                  {String(t('nav.selectLanguage'))}
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {languageOptions.map((lang) => (

@@ -50,9 +50,9 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="heading-1 mb-4">{t('contact.title')}</h1>
+            <h1 className="heading-1 mb-4">{String(t('contact.title'))}</h1>
             <p className="text-xl text-gray-600">
-              {t('contact.subtitle')}
+              {String(t('contact.subtitle'))}
             </p>
           </motion.div>
         </div>
@@ -72,7 +72,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    {t('contact.form.name')}
+                    {String(t('contact.form.name'))}
                   </label>
                   <input
                     type="text"
@@ -87,7 +87,7 @@ export default function ContactPage() {
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    {t('contact.form.email')}
+                    {String(t('contact.form.email'))}
                   </label>
                   <input
                     type="email"
@@ -102,7 +102,7 @@ export default function ContactPage() {
 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                    {t('contact.form.subject')}
+                    {String(t('contact.form.subject'))}
                   </label>
                   <input
                     type="text"
@@ -117,7 +117,7 @@ export default function ContactPage() {
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    {t('contact.form.message')}
+                    {String(t('contact.form.message'))}
                   </label>
                   <textarea
                     id="message"
@@ -137,7 +137,7 @@ export default function ContactPage() {
                     className="flex items-center gap-2 text-green-600 bg-green-50 p-4 rounded-lg"
                   >
                     <CheckCircle className="w-5 h-5" />
-                    <span>{t('contact.form.success')}</span>
+                    <span>{String(t('contact.form.success'))}</span>
                   </motion.div>
                 )}
 
@@ -148,7 +148,7 @@ export default function ContactPage() {
                     className="flex items-center gap-2 text-red-600 bg-red-50 p-4 rounded-lg"
                   >
                     <AlertCircle className="w-5 h-5" />
-                    <span>{t('contact.form.error')}</span>
+                    <span>{String(t('contact.form.error'))}</span>
                   </motion.div>
                 )}
 
@@ -160,12 +160,12 @@ export default function ContactPage() {
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      {t('contact.form.sending')}
+                      {String(t('contact.form.sending'))}
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
-                      {t('contact.form.submit')}
+                      {String(t('contact.form.submit'))}
                     </>
                   )}
                 </button>
@@ -182,13 +182,13 @@ export default function ContactPage() {
               <div className="p-3 rounded-lg bg-scandi-blue/10 text-scandi-blue w-fit mb-6">
                 <Mail className="w-8 h-8" />
               </div>
-              <h2 className="heading-3 mb-4">{t('contact.info.title')}</h2>
+              <h2 className="heading-3 mb-4">{String(t('contact.info.title'))}</h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  <strong>{t('contact.info.email')}</strong>
+                  <strong>{String(t('contact.info.email'))}</strong>
                 </p>
                 <p className="text-sm text-gray-600 mt-4">
-                  {t('contact.info.note')}
+                  {String(t('contact.info.note'))}
                 </p>
               </div>
             </motion.div>
