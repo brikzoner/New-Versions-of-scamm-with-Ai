@@ -1,27 +1,44 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Globe } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/locales/translations'
 
-const languages = [
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-  { code: 'zh', name: '中文', flag: '🇨🇳' },
-  { code: 'ja', name: '日本語', flag: '🇯🇵' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-]
+const languageMetaFallback: Record<string, { name: string; flag: string }> = {
+  uk: { name: 'Українська', flag: '🇺🇦' },
+  en: { name: 'English', flag: '🇬🇧' },
+  es: { name: 'Español', flag: '🇪🇸' },
+  fr: { name: 'Français', flag: '🇫🇷' },
+  de: { name: 'Deutsch', flag: '🇩🇪' },
+  ru: { name: 'Русский', flag: '🇷🇺' },
+  ar: { name: 'العربية', flag: '🇸🇦' },
+  zh: { name: '中文', flag: '🇨🇳' },
+  ja: { name: '日本語', flag: '🇯🇵' },
+  hi: { name: 'हिन्दी', flag: '🇮🇳' },
+  pt: { name: 'Português', flag: '🇵🇹' },
+  it: { name: 'Italiano', flag: '🇮🇹' },
+  pl: { name: 'Polski', flag: '🇵🇱' },
+}
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [showLangMenu, setShowLangMenu] = useState(false)
   const { language, setLanguage, t } = useLanguage()
+  const languageOptions = useMemo(() => {
+    return Object.keys(translations).map((code) => {
+      const meta = translations[code]
+      const fallback = languageMetaFallback[code] || { name: code.toUpperCase(), flag: '🌐' }
+      return {
+        code,
+        name: meta?.name || fallback.name,
+        flag: meta?.flag || fallback.flag,
+      }
+    })
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +48,8 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const currentLang = languages.find(l => l.code === language) || languages[0]
+  const currentLang =
+    languageOptions.find((l) => l.code === language) || languageOptions[0]
 
   const navLinks = [
     { href: '/', label: t('nav.home') },
@@ -91,7 +109,7 @@ export default function Navigation() {
                     exit={{ opacity: 0, y: -10 }}
                     className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg border border-scandi-gray overflow-hidden min-w-[200px]"
                   >
-                    {languages.map((lang) => (
+                    {languageOptions.map((lang) => (
                       <button
                         key={lang.code}
                         onClick={() => {
@@ -154,7 +172,7 @@ export default function Navigation() {
                   {t('nav.selectLanguage')}
                 </div>
                 <div className="grid grid-cols-2 gap-2">
-                  {languages.map((lang) => (
+                  {languageOptions.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => {

@@ -26,6 +26,7 @@ export default function ScamTypeCard({ id, icon: Icon, iconColor }: ScamTypeCard
       title: String(t(`scamTypes.${id}.danger.title`)),
       content: String(t(`scamTypes.${id}.danger.content`)),
     },
+    description: String(t(`scamTypes.${id}.description`)),
     examples: {
       title: String(t(`scamTypes.${id}.examples.title`)),
       content: (() => {
@@ -60,6 +61,9 @@ export default function ScamTypeCard({ id, icon: Icon, iconColor }: ScamTypeCard
           <div>
             <h2 className="heading-3 mb-2">{data.title}</h2>
             <p className="text-gray-600">{data.subtitle}</p>
+            {data.description && (
+              <p className="text-gray-700 mt-2">{data.description}</p>
+            )}
           </div>
         </div>
         <button

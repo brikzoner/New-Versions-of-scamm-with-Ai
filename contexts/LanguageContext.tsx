@@ -8,26 +8,33 @@ type Language = string
 interface LanguageContextType {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: string) => string | string[] | any
+  t: (key: string) => string | string[] | Record<string, any>
   dir: 'ltr' | 'rtl'
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en')
+  const DEFAULT_LANGUAGE = 'uk'
+  const [language, setLanguageState] = useState<Language>(DEFAULT_LANGUAGE)
 
   useEffect(() => {
-    // Get language from localStorage or browser
-    const savedLang = localStorage.getItem('language')
-    const browserLang = navigator.language.split('-')[0]
-    const initialLang = savedLang || (translations[browserLang] ? browserLang : 'en')
+    const savedLang = typeof window !== 'undefined' ? localStorage.getItem('language') : null
+    const browserLang = typeof navigator !== 'undefined' ? navigator.language.split('-')[0] : DEFAULT_LANGUAGE
+    const initialLang =
+      savedLang ||
+      (translations[browserLang] ? browserLang : DEFAULT_LANGUAGE)
+
     setLanguageState(initialLang)
+    document.documentElement.lang = initialLang
+    document.documentElement.dir = translations[initialLang]?.rtl ? 'rtl' : 'ltr'
   }, [])
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
-    localStorage.setItem('language', lang)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('language', lang)
+    }
     document.documentElement.lang = lang
     document.documentElement.dir = translations[lang]?.rtl ? 'rtl' : 'ltr'
   }
@@ -37,9 +44,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.dir = translations[language]?.rtl ? 'rtl' : 'ltr'
   }, [language])
 
-  const t = (key: string): string | string[] | any => {
+  const t = (key: string): string | string[] | Record<string, any> => {
     const keys = key.split('.')
-    let value: any = translations[language] || translations['en']
+    let value: any = translations[language] || translations['uk'] || translations['en']
     
     for (const k of keys) {
       // Handle array index access (e.g., "items.0.title")
@@ -51,7 +58,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       
       if (value === undefined) {
         // Fallback to English
-        value = translations['en']
+        value = translations['uk'] || translations['en']
         for (const k2 of keys) {
           if (!isNaN(Number(k2)) && Array.isArray(value)) {
             value = value[Number(k2)]

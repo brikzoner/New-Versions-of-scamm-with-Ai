@@ -4,61 +4,46 @@ import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Book, Tool, Bell } from 'lucide-react'
 
+type ResourceItem = { title: string; description: string }
+type ResourceSection = { icon: any; title: string; items: ResourceItem[] }
+
 export default function ResourcesPage() {
   const { t } = useLanguage()
 
-  const sections = [
-    {
-      icon: Book,
-      title: t('resources.sections.guides.title'),
-      items: [
-        {
-          title: t('resources.sections.guides.items.0.title'),
-          description: t('resources.sections.guides.items.0.description'),
-        },
-        {
-          title: t('resources.sections.guides.items.1.title'),
-          description: t('resources.sections.guides.items.1.description'),
-        },
-        {
-          title: t('resources.sections.guides.items.2.title'),
-          description: t('resources.sections.guides.items.2.description'),
-        },
-      ],
-    },
-    {
-      icon: Tool,
-      title: t('resources.sections.tools.title'),
-      items: [
-        {
-          title: t('resources.sections.tools.items.0.title'),
-          description: t('resources.sections.tools.items.0.description'),
-        },
-        {
-          title: t('resources.sections.tools.items.1.title'),
-          description: t('resources.sections.tools.items.1.description'),
-        },
-        {
-          title: t('resources.sections.tools.items.2.title'),
-          description: t('resources.sections.tools.items.2.description'),
-        },
-      ],
-    },
-    {
-      icon: Bell,
-      title: t('resources.sections.updates.title'),
-      items: [
-        {
-          title: t('resources.sections.updates.items.0.title'),
-          description: t('resources.sections.updates.items.0.description'),
-        },
-        {
-          title: t('resources.sections.updates.items.1.title'),
-          description: t('resources.sections.updates.items.1.description'),
-        },
-      ],
-    },
-  ]
+  const sections = (() => {
+    const data = t('resources.sections') as Record<string, any>
+    const guides = data?.guides || {}
+    const tools = data?.tools || {}
+    const updates = data?.updates || {}
+
+    const buildItems = (items: any): ResourceItem[] =>
+      Array.isArray(items)
+        ? items.map((item) => ({
+            title: String(item?.title ?? ''),
+            description: String(item?.description ?? ''),
+          }))
+        : []
+
+    const mapped: ResourceSection[] = [
+      {
+        icon: Book,
+        title: String(guides.title ?? ''),
+        items: buildItems(guides.items),
+      },
+      {
+        icon: Tool,
+        title: String(tools.title ?? ''),
+        items: buildItems(tools.items),
+      },
+      {
+        icon: Bell,
+        title: String(updates.title ?? ''),
+        items: buildItems(updates.items),
+      },
+    ]
+
+    return mapped
+  })()
 
   return (
     <div className="min-h-screen pt-20">
@@ -109,4 +94,5 @@ export default function ResourcesPage() {
     </div>
   )
 }
+
 
