@@ -10,18 +10,18 @@ export default function AboutPage() {
   const sections = [
     {
       icon: Target,
-      title: t('about.mission.title'),
-      content: t('about.mission.content'),
+      title: String(t('about.mission.title')),
+      content: String(t('about.mission.content')),
     },
     {
       icon: AlertCircle,
-      title: t('about.why.title'),
-      content: t('about.why.content'),
+      title: String(t('about.why.title')),
+      content: String(t('about.why.content')),
     },
     {
       icon: Lightbulb,
-      title: t('about.approach.title'),
-      content: t('about.approach.content'),
+      title: String(t('about.approach.title')),
+      content: String(t('about.approach.content')),
     },
   ]
 
@@ -35,9 +35,9 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="heading-1 mb-4">{t('about.title')}</h1>
+            <h1 className="heading-1 mb-4">{String(t('about.title'))}</h1>
             <p className="text-xl text-gray-600">
-              {t('about.subtitle')}
+              {String(t('about.subtitle'))}
             </p>
           </motion.div>
         </div>

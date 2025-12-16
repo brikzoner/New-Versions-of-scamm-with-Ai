@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Book, Tool, Bell } from 'lucide-react'
+import { Book, Wrench, Bell } from 'lucide-react'
 
 type ResourceItem = { title: string; description: string }
 type ResourceSection = { icon: any; title: string; items: ResourceItem[] }
@@ -11,7 +11,7 @@ export default function ResourcesPage() {
   const { t } = useLanguage()
 
   const sections = (() => {
-    const data = t('resources.sections') as Record<string, any>
+    const data = (t('resources.sections') || {}) as Record<string, any>
     const guides = data?.guides || {}
     const tools = data?.tools || {}
     const updates = data?.updates || {}
@@ -31,7 +31,7 @@ export default function ResourcesPage() {
         items: buildItems(guides.items),
       },
       {
-        icon: Tool,
+        icon: Wrench,
         title: String(tools.title ?? ''),
         items: buildItems(tools.items),
       },
@@ -55,9 +55,9 @@ export default function ResourcesPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="heading-1 mb-4">{t('resources.title')}</h1>
+            <h1 className="heading-1 mb-4">{String(t('resources.title'))}</h1>
             <p className="text-xl text-gray-600">
-              {t('resources.subtitle')}
+              {String(t('resources.subtitle'))}
             </p>
           </motion.div>
         </div>
